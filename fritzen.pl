@@ -203,7 +203,7 @@ List of actions for service B<ontel>:
 
 B<none>
 
-=item B<-a, --task>
+=item B<-t, --task>
 
 Task to perform. Either an action or a task must be given.
 
