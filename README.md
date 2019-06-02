@@ -1,76 +1,159 @@
-# fritzen
+NAME
+    fritzen.pl
 
-  Process FRITZ!Box configuration data using the TR-064 protocol
+DESCRIPTION
+    Process FRITZ!Box configuration data using the TR-064 protocol.
 
-# Installation
+SYNOPSIS
+    fritzen.pl --service <value> --action <value> [other options...]
 
-  1. Extract archive to your preferred location/folder.
-  2. Set appropriate file ownership and permissions of fritzen.cfg to avoid unauthorized access.
+    fritzen.pl --service <value> --task <value> [other options...]
 
-# Usage
+     Options:
+       -s,--service         deviceconfig | deviceinfo | ontel
+       -a,--action          getinfo | getsecurityport | ...
+       -t,--task            backup | restore | ...
 
-  ./fritzen.pl --help
+       -u,--username        SOAP username
+       -p,--password        SOAP password
+       -d,--deviceurl       UPnP URL of fritzbox
 
-  or
+       -c,--cfgfile         config filename
+       -l,--logfile         log filename
+       -v,--loglevel        debug | info | warn
 
-  perldoc fritzen.pl
+       -w,--workdir         working directory
+       -g,--git             git init/commit
 
-# Required perl modules
+       -q,--quiet           suppress screen messages
+       -h,--help            show help screen
 
-  AppConfig
-  Config::Std
-  Cwd
-  FindBin::libs
-  Git::Repository
-  HTTP::Daemon
-  HTTP::Daemon:SSL
-  HTTP::Status
-  Log::Log4perl
-  LWP::UserAgent
-  Net::Address::IP::Local
-  Net::Fritz
-  Pod::Usage
-  URI
+       --configpw           password for config file protection
 
-# Installation of required perl modules with apt-get
+       --serverproto        internal webserver protocol
+       --serveraddr         internal webserver ip address
+       --serverport         internal webserver tcp port
+       --sslcertfile        internal webserver ssl certificate file
+       --sslkeyfile         internal webserver ssl private key file
 
-  sudo apt-get install libappconfig-perl libconfig-std-perl libfindbin-libs-perl libgit-repository-perl libhttp-daemon-perl libhttp-daemon-ssl-perl libhttp-message-perl liblog-log4perl-perl libwww-perl libnet-address-ip-local-perl
+OPTIONS
+    -s, --service
+        TR-064 service (mandatory): deviceconfig, deviceinfo or ontel
 
-# Installation of other perl modules with apt-get (in preparation for CPAN installation of Net::Fritz)
+    -a, --action
+        TR-064 action to perform. Either an action or a task must be given.
 
-  sudo apt-get install libxml-simple-perl libxml-parser-perl libsoap-lite-perl
+        List of actions for service deviceconfig:
 
-# Installation of Net::Fritz from CPAN
+        - factory-reset: Reset fritzbox to factory settings. Use with care!
 
-  sudo cpan
+        - reboot: Reboot fritzbox. Note: The fritzbox will reboot itself
+        automatically approx. 30 seconds after restore from file.
 
-  cpan[1]> install Net::Fritz
+        List of actions for service deviceinfo:
 
-# Troubleshooting installation failure of HTTP::Daemon::SSL when using CPAN
+        - getinfo: Get miscellaneous information about fritzbox hardware and
+        software.
 
-  (see bug info: https://rt.cpan.org/Public/Bug/Display.html?id=88998)
+        - getsecurityport: Get HTTPS port of fritzbox for secure
+        information.
 
-  1. Change to your CPAN distroprefs directory
+        List of actions for service ontel:
 
-    cd ~/.cpan/prefs/
+        none
 
-  2. Get YAML file with patch information
+    -a, --task
+        Task to perform. Either an action or a task must be given.
 
-    sudo curl -o HTTP-Daemon-SSL.yml https://raw.githubusercontent.com/eserte/srezic-cpan-distroprefs/master/HTTP-Daemon-SSL.yml
+        List of tasks for service deviceconfig:
 
-    or
+        - backup: Backup fritzbox configuration to file.
 
-    sudo wget -O HTTP-Daemon-SSL.yml https://raw.githubusercontent.com/eserte/srezic-cpan-distroprefs/master/HTTP-Daemon-SSL.yml
+        - restore: Restore fritzbox configuration from file.
 
-  3. Change to home directory & start CPAN
+        List of tasks for service deviceinfo:
 
-    sudo cpan
+        none
 
-  4. Install YAML (unless installed)
+        List of actions for service ontel:
 
-    cpan[1]> install YAML
+        - backup : Backup all phonebooks to files.
 
-  5. Install HTTP::Daemon::SSL with patch
+        - backup:id : Backup phonebook from file by ID. For example
+        "--action backup:1" will back up the phonebook with ID #1.
 
-    cpan[2]> install HTTP::Daemon::SSL
+        - delete: Delete all phonebooks on the FRITZ!Box. The phonebooks
+        will be deleted top-down, starting with the highest ID first.
+
+        - delete:id : Delete phonebook identified by ID on the FRITZ!Box.
+        Note that phonebooks with IDs above ID will "slide down" and the
+        FRITZ!Box will reassign them new IDs. As a result, phonebook IDs on
+        the FRITZ!Box and the respective backup file numbering will be out
+        of sync and require manual rework.
+
+        - list: List available phonebooks on the FRITZ!Box.
+
+        - restore : Restore all phonebooks from files.
+
+        - restore:id : Restore phonebook by ID from file.
+
+    -u, --username
+        SOAP username (better use config file)
+
+    -p, --password
+        SOAP password (better use config file)
+
+    -d, --deviceurl
+        UPnP URL of fritzbox (default: http://fritz.box:49000)
+
+    -c, --cfgfile
+        Config filename (default: fritzen.cfg)
+
+    -l, --logfile
+        Log filename (default: fritzen.log)
+
+    -v, --loglevel
+        Log level: debug, info or warn (default: info).
+
+    -w, --workdir
+        Working directory (default: current directory). Must be writeable.
+        This is where all backed up files will be stored and a git
+        repository will be initialized (if option --git is set). It is
+        recommended to use distinct and different working directories for
+        different devices and/or sets of configuration data.
+
+    -g, --git
+        Commit files to git repository (switch, default: false). Init git
+        repository in working directory if not already done.
+
+    -q, --quiet
+        Suppress screen messages i. e. when running in cronjob (switch,
+        default: false).
+
+    --configpw
+        Password for config file protection. If unset the SOAP passsord will
+        be used.
+
+    --serverproto
+        Serve files for fritzbox either with HTTP or HTTPS protocol
+        (default: http). The module HTTP::Daemon::SSL is required for HTTPS.
+        Use http if the installation of HTTP::Daemon::SSL fails on your
+        system and edit Fritzen/Common.pm to set "SSL_AVAILABLE => 0".
+
+    --serveraddr
+        Serve files for fritzbox with this IP address (default:
+        auto-discovered IPv4 address of your system)
+
+    --serverport
+        Serve files for fritzbox with this TCP port (default: 8888)
+
+    --sslcertfile
+        SSL certificate file for HTTPS server (default:
+        ssl/ssl-cert-snakeoil.pem)
+
+    --sslkeyfile
+        SSL key file for HTTPS server (default: ssl/ssl-cert-snakeoil.key)
+
+    -h, --help
+        Print this help screen and exit.
 
