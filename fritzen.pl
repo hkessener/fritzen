@@ -17,6 +17,7 @@ use Fritzen::Common;
 use Fritzen::DeviceConfig;
 use Fritzen::DeviceInfo;
 use Fritzen::OnTel;
+use Fritzen::WANDSLInterfaceConfig;
 
 #####################################################################
 # fritzen.pl
@@ -103,6 +104,10 @@ if($Config->service eq 'deviceconfig') {
     Device => $Device,
     Config => $Config,
   );
+} elsif($Config->service eq 'wandslinterfaceconfig') {
+  $Wrapper = Fritzen::WANDSLInterfaceConfig->new(
+    Device => $Device
+  );
 } else {
   $Log->logexit('service unknown');
 }
@@ -149,7 +154,7 @@ fritzen.pl --service <value> --action <value> [other options...]
 fritzen.pl --service <value> --task   <value> [other options...]
 
  Options:
-   -s,--service		deviceconfig | deviceinfo | ontel
+   -s,--service		deviceconfig | deviceinfo | ...
    -a,--action		getinfo | getsecurityport | ...
    -t,--task		backup | restore | ...
 
@@ -202,6 +207,14 @@ List of actions for service B<deviceinfo>:
 List of actions for service B<ontel>:
 
 B<none>
+
+List of actions for service B<wlandslinterfaceconfig>:
+
+- B<getinfo>: Get status information about current DSL connection
+
+- B<getstatisticstotal>: Get statistics on current DSL connection
+
+- B<getdsldiagnoseinfo>: Returns the state of a DSL diagnose
 
 =item B<-t, --task>
 
