@@ -14,7 +14,7 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
 ## Options:
 
-    -s,--service         deviceconfig | deviceinfo | ontel
+    -s,--service         deviceconfig | deviceinfo | ...
     -a,--action          getinfo | getsecurityport | ...
     -t,--task            backup | restore | ...
 
@@ -65,6 +65,14 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
         List of actions for service ontel:
 
             none
+
+        List of actions for service wlandslinterfaceconfig:
+
+            - getinfo: Get status information about current DSL connection
+
+            - getstatisticstotal: Get statistics on current DSL connection
+
+            - getdsldiagnoseinfo: Returns the state of a DSL diagnose
 
     -t, --task
 
