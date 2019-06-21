@@ -78,8 +78,8 @@ sub RunAction($) {
   my $Log = Log::Log4perl->get_logger();
 
   if($Action eq 'getsecurityport') {
-    my $Port = $self->GetSecurityPort() or return undef;
-    $Log->info(qq|$Port|);
+    my $R = $self->GetSecurityPort() or return undef;
+    $Log->info(qq|$R|);
     return 1; 
   }
   if($Action eq 'getinfo') {
