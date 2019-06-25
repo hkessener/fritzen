@@ -17,6 +17,7 @@ use Fritzen::Common;
 use Fritzen::DeviceConfig;
 use Fritzen::DeviceInfo;
 use Fritzen::OnTel;
+use Fritzen::WANCommonInterfaceConfig;
 use Fritzen::WANDSLInterfaceConfig;
 
 #####################################################################
@@ -68,7 +69,7 @@ if(defined $Config->git) {
 }
 
 #####################################################################
-# connect to fritzbox
+# connect to FRITZ!Box
 
 my $Fritz = Net::Fritz::Box->new(
   username => $Config->username,
@@ -103,6 +104,10 @@ if($Config->service eq 'deviceconfig') {
   $Wrapper = Fritzen::OnTel->new(
     Device => $Device,
     Config => $Config,
+  );
+} elsif($Config->service eq 'wancommoninterfaceconfig') {
+  $Wrapper = Fritzen::WANCommonInterfaceConfig->new(
+    Device => $Device
   );
 } elsif($Config->service eq 'wandslinterfaceconfig') {
   $Wrapper = Fritzen::WANDSLInterfaceConfig->new(
@@ -160,7 +165,7 @@ fritzen.pl --service <value> --task   <value> [other options...]
 
    -u,--username	SOAP username
    -p,--password	SOAP password
-   -d,--deviceurl	UPnP URL of fritzbox
+   -d,--deviceurl	UPnP URL of FRITZ!Box
 
    -c,--cfgfile		config filename
    -l,--logfile		log filename
@@ -194,15 +199,15 @@ TR-064 action to perform. Either an action or a task must be given.
 
 List of actions for service B<deviceconfig>:
 
-- B<factory-reset>: Reset fritzbox to factory settings. Use with care!
+- B<factory-reset>: Reset FRITZ!Box to factory settings. Use with care!
 
-- B<reboot>: Reboot fritzbox. Note: The fritzbox will reboot itself automatically approx. 30 seconds after restore from file.
+- B<reboot>: Reboot FRITZ!Box. Note: The FRITZ!Box will reboot itself automatically approx. 30 seconds after restore from file.
 
 List of actions for service B<deviceinfo>:
 
-- B<getinfo>: Get miscellaneous information about fritzbox hardware and software.
+- B<getinfo>: Get miscellaneous information about FRITZ!Box hardware and software.
 
-- B<getsecurityport>: Get HTTPS port of fritzbox for secure information.
+- B<getsecurityport>: Get HTTPS port of FRITZ!Box for secure information.
 
 List of actions for service B<ontel>:
 
@@ -210,11 +215,25 @@ B<none>
 
 List of actions for service B<wlandslinterfaceconfig>:
 
-- B<getinfo>: Get status information about current DSL connection
+- B<getinfo>: Get status information about current DSL connection.
 
-- B<getstatisticstotal>: Get statistics on current DSL connection
+- B<getstatisticstotal>: Get statistics on current DSL connection.
 
-- B<getdsldiagnoseinfo>: Returns the state of a DSL diagnose
+- B<getdsldiagnoseinfo>: Returns the state of a DSL diagnose.
+
+List of actions for service B<wancommoninterfaceconfig>:
+
+- B<getcommonlinkproperties>: Get information about access type, bit rates and link status.
+
+- B<gettotalbytessent>: Get number of total bytes sent.
+
+- B<gettotalbytesreceived>: Get number of total bytes received.
+
+- B<gettotalpacketssent>: Get number of total packets sent.
+
+- B<gettotalpacketsreceived>: Get number of total packets received.
+
+- B<setwanaccesstype>: Set WAN access type to one of the following values: DSL, Ethernet, X_AVM-DE_Fiber (Fiber), X_AVM-DE_UMTS (UMTS), X_AVM-DE_Cable (Cable), X_AVM-DE_LTE (LTE) (abbreviations placed in parentheses). For example "--setwanaccesstype:dsl" will set the access type to DSL.
 
 =item B<-t, --task>
 
@@ -222,9 +241,9 @@ Task to perform. Either an action or a task must be given.
 
 List of tasks for service B<deviceconfig>:
 
-- B<backup>: Backup fritzbox configuration to file.
+- B<backup>: Backup FRITZ!Box configuration to file.
 
-- B<restore>: Restore fritzbox configuration from file.
+- B<restore>: Restore FRITZ!Box configuration from file.
 
 List of tasks for service B<deviceinfo>:
 
@@ -256,7 +275,7 @@ SOAP password (better use config file)
 
 =item B<-d, --deviceurl>
 
-UPnP URL of fritzbox (default: B<http://fritz.box:49000>)
+UPnP URL of FRITZ!Box (default: B<http://fritz.box:49000>)
 
 =item B<-c, --cfgfile>
 
@@ -288,15 +307,15 @@ Password for config file protection. If unset the SOAP passsord will be used.
 
 =item B<--serverproto>
 
-Serve files for fritzbox either with B<HTTP> or B<HTTPS> protocol (default: B<http>). The module HTTP::Daemon::SSL is required for HTTPS. Use B<http> if the installation of HTTP::Daemon::SSL fails on your system and edit Fritzen/Common.pm to set "SSL_AVAILABLE => 0".
+Serve files for FRITZ!Box either with B<HTTP> or B<HTTPS> protocol (default: B<http>). The module HTTP::Daemon::SSL is required for HTTPS. Use B<http> if the installation of HTTP::Daemon::SSL fails on your system and edit Fritzen/Common.pm to set "SSL_AVAILABLE => 0".
 
 =item B<--serveraddr>
 
-Serve files for fritzbox with this IP address (default: auto-discovered IPv4 address of your system)
+Serve files for FRITZ!Box with this IP address (default: auto-discovered IPv4 address of your system)
 
 =item B<--serverport>
 
-Serve files for fritzbox with this TCP port (default: B<8888>)
+Serve files for FRITZ!Box with this TCP port (default: B<8888>)
 
 =item B<--sslcertfile>
 

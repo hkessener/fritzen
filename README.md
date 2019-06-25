@@ -66,13 +66,27 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
             none
 
-        List of actions for service wlandslinterfaceconfig:
+        List of actions for service wandslinterfaceconfig:
 
-            - getinfo: Get status information about current DSL connection
+            - getinfo: Get status information about current DSL connection.
 
-            - getstatisticstotal: Get statistics on current DSL connection
+            - getstatisticstotal: Get statistics on current DSL connection.
 
-            - getdsldiagnoseinfo: Returns the state of a DSL diagnose
+            - getdsldiagnoseinfo: Returns the state of a DSL diagnose.
+
+        List of actions for service wancommoninterfaceconfig:
+
+            - getcommonlinkproperties: Get information about access type, bit rates and link status.
+
+            - gettotalbytessent: Get number of total bytes sent.
+
+            - gettotalbytesreceived: Get number of total bytes received.
+
+            - gettotalpacketssent: Get number of total packets sent.
+
+            - gettotalpacketsreceived: Get number of total packets received.
+
+            - setwanaccesstype: Set WAN access type to one of the following values: DSL, Ethernet, X_AVM-DE_Fiber (Fiber), X_AVM-DE_UMTS (UMTS), X_AVM-DE_Cable (Cable), X_AVM-DE_LTE (LTE) (abbreviations placed in parentheses). For example "--setwanaccesstype:dsl" will set the access type to DSL.
 
     -t, --task
 
@@ -90,7 +104,7 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
         List of actions for service ontel:
 
-            - backup : Backup all phonebooks to files.
+            - backup: Backup all phonebooks to files.
 
             - backup:id : Backup phonebook from file by ID. For example "--action backup:1" will back up the phonebook with ID #1.
 
@@ -100,7 +114,7 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
             - list: List available phonebooks on the FRITZ!Box.
 
-            - restore : Restore all phonebooks from files.
+            - restore: Restore all phonebooks from files.
 
             - restore:id : Restore phonebook by ID from file.
 

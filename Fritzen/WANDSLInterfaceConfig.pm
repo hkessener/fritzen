@@ -10,7 +10,9 @@ use Fritzen::Common;
   
 =head1 NAME
   
-Fritzen::WANDSLInterfaceConfig - fritzen WAN/DSL interface related functions
+Fritzen::WANDSLInterfaceConfig
+
+WAN/DSL Interface Config related functions
 
 =cut
 
