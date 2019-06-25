@@ -145,7 +145,7 @@ sub SetWANAccessType($) {
     'x_avm-de_lte'	=> 'X_AVM-DE_LTE',
   );
 
-  if($NewAccessType eq '') {
+  unless(defined($NewAccessType)) {
     $Log->debug(qq|AccessType not set|);
     return undef;
   }
