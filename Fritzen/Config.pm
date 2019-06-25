@@ -13,7 +13,9 @@ our @EXPORT = qw(GetInitialConfig CheckConfig);
 
 =head1 NAME
   
-Fritzen::Config - fritzen config related functions
+Fritzen::Config
+
+Config related functions
 
 =cut
 
@@ -39,7 +41,7 @@ sub GetInitialConfig() {
     # SOAP credentials
     'username|u=s' , { DEFAULT => DEFAULT_USERNAME },
     'password|p=s' , { DEFAULT => DEFAULT_PASSWORD },
-    # UPNP URL of fritzbox
+    # UPNP URL of FRITZ!Box
     'deviceurl|d=s', { DEFAULT => DEFAULT_DEVICEURL },
     # working directory
     'workdir|w=s'  , { DEFAULT => DEFAULT_WORKDIR },
