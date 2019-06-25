@@ -20,7 +20,7 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
     -u,--username        SOAP username
     -p,--password        SOAP password
-    -d,--deviceurl       UPnP URL of fritzbox
+    -d,--deviceurl       UPnP URL of FRITZ!Box
 
     -c,--cfgfile         config filename
     -l,--logfile         log filename
@@ -52,15 +52,15 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
         List of actions for service deviceconfig:
 
-            - factory-reset: Reset fritzbox to factory settings. Use with care!
+            - factory-reset: Reset FRITZ!Box to factory settings. Use with care!
 
-            - reboot: Reboot fritzbox. Note: The fritzbox will reboot itself automatically approx. 30 seconds after restore from file.
+            - reboot: Reboot FRITZ!Box. Note: The FRITZ!Box will reboot itself automatically approx. 30 seconds after restore from file.
 
         List of actions for service deviceinfo:
 
-            - getinfo: Get miscellaneous information about fritzbox hardware and software.
+            - getinfo: Get miscellaneous information about FRITZ!Box hardware and software.
 
-            - getsecurityport: Get HTTPS port of fritzbox for secure information.
+            - getsecurityport: Get HTTPS port of FRITZ!Box for secure information.
 
         List of actions for service ontel:
 
@@ -80,9 +80,9 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
         List of tasks for service deviceconfig:
 
-            - backup: Backup fritzbox configuration to file.
+            - backup: Backup FRITZ!Box configuration to file.
 
-            - restore: Restore fritzbox configuration from file.
+            - restore: Restore FRITZ!Box configuration from file.
 
         List of tasks for service deviceinfo:
 
@@ -114,7 +114,7 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
     -d, --deviceurl
 
-        UPnP URL of fritzbox (default: http://fritz.box:49000)
+        UPnP URL of FRITZ!Box (default: http://fritz.box:49000)
 
     -c, --cfgfile
 
@@ -146,15 +146,15 @@ Process FRITZ!Box configuration data using the TR-064 protocol.
 
     --serverproto
 
-        Serve files for fritzbox either with HTTP or HTTPS protocol (default: http). The module HTTP::Daemon::SSL is required for HTTPS. Use http if the installation of HTTP::Daemon::SSL fails on your system and edit Fritzen/Common.pm to set "SSL_AVAILABLE => 0".
+        Serve files for FRITZ!Box either with HTTP or HTTPS protocol (default: http). The module HTTP::Daemon::SSL is required for HTTPS. Use http if the installation of HTTP::Daemon::SSL fails on your system and edit Fritzen/Common.pm to set "SSL_AVAILABLE => 0".
 
     --serveraddr
 
-        Serve files for fritzbox with this IP address (default: auto-discovered IPv4 address of your system)
+        Serve files for FRITZ!Box with this IP address (default: auto-discovered IPv4 address of your system)
 
     --serverport
 
-        Serve files for fritzbox with this TCP port (default: 8888)
+        Serve files for FRITZ!Box with this TCP port (default: 8888)
 
     --sslcertfile
 
