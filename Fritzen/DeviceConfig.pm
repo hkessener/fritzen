@@ -12,7 +12,9 @@ use Fritzen::Common;
   
 =head1 NAME
   
-Fritzen::DeviceConfig - fritzen device config related functions
+Fritzen::DeviceConfig
+
+Device Config related functions
 
 =cut
 
@@ -118,7 +120,7 @@ sub SetConfigFile() {
   my $ServerAddr  = $Config->serveraddr;
   my $ServerPort  = $Config->serverport;
 
-  # compose download url for fritzbox
+  # compose download url for FRITZ!Box
   my $ConfigFileUrl = qq|$ServerProto://$ServerAddr:$ServerPort/$FileName|;
 
   # spawn a "server"-child
