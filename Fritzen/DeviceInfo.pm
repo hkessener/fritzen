@@ -10,7 +10,9 @@ use Fritzen::Common;
   
 =head1 NAME
   
-Fritzen::DeviceInfo - fritzen device info related functions
+Fritzen::DeviceInfo
+
+Device Info related functions
 
 =cut
 
