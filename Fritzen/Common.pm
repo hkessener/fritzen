@@ -16,7 +16,9 @@ our @EXPORT = qw(InitLogger DownloadFile ServeFile);
 
 =head1 NAME
   
-Fritzen::Common - fritzen common functions
+Fritzen::Common
+
+Common functions
 
 =cut
 
