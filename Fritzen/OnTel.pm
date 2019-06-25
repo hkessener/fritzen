@@ -11,7 +11,9 @@ use Fritzen::Common;
   
 =head1 NAME
   
-Fritzen::OnTel - fritzen contact related functions
+Fritzen::OnTel
+
+Contact related functions
 
 =cut
 
@@ -413,7 +415,7 @@ sub RunTask($) {
     return $self->DeletePhonebook($ID);
   }
 
-  # list available phonebooks on fritzbox
+  # list available phonebooks on FRITZ!Box
   if($Task eq 'list') {
     $Log->info(qq|ID\tName|);
     my @List = $self->GetPhonebookList();
