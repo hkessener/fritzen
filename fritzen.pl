@@ -213,7 +213,7 @@ List of actions for service B<ontel>:
 
 B<none>
 
-List of actions for service B<wlandslinterfaceconfig>:
+List of actions for service B<wandslinterfaceconfig>:
 
 - B<getinfo>: Get status information about current DSL connection.
 
